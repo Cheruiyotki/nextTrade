@@ -19,7 +19,7 @@ export function DashboardHeader({ stats }) {
 
   const isPositive = Number(safeStats.change24h || 0) >= 0;
   const changeClass = isPositive ? "text-emerald-400" : "text-red-400";
-  const changeIcon = isPositive ? "?" : "?";
+  const changeIcon = isPositive ? "\u25B2" : "\u25BC";
 
   return html`
     <section className="bg-slate-900/50 backdrop-blur-md border-b border-white/10 rounded-2xl p-4 md:p-5">

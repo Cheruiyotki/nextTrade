@@ -3,13 +3,13 @@ from jinja2 import TemplateNotFound
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import BadRequest
 import sqlite3
-import json
-from datetime import datetime
 import os
 import random
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+
+SELL_EPSILON = 1e-9
 
 # Database configuration for Render
 def get_database_url():
@@ -205,6 +205,8 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
+            if request.path.startswith('/api/'):
+                return jsonify({'success': False, 'message': 'Authentication required'}), 401
             flash('Please log in to access this page.', 'error')
             return redirect(url_for('login'))
         return f(*args, **kwargs)
@@ -412,9 +414,9 @@ def buy_asset():
             'message': f'Successfully purchased {quantity} {asset[2]} for ${total_cost:.2f}',
             'new_balance': round(current_balance - total_cost, 2),
         })
-    except Exception as error:
+    except Exception:
         conn.rollback()
-        return jsonify({'success': False, 'message': f'Failed to execute trade: {error}'}), 500
+        return jsonify({'success': False, 'message': 'Failed to execute trade.'}), 500
     finally:
         cursor.close()
         conn.close()
@@ -457,7 +459,9 @@ def sell_asset():
         price = float(asset[3])
         total_value = price * quantity
 
-        if float(user_asset[3]) == quantity:
+        owned_quantity = float(user_asset[3])
+
+        if abs(owned_quantity - quantity) <= SELL_EPSILON:
             delete_asset_query = (
                 'DELETE FROM user_assets WHERE user_id = %s AND asset_id = %s'
                 if is_postgres()
@@ -499,9 +503,9 @@ def sell_asset():
             'message': f'Successfully sold {quantity} {asset[2]} for ${total_value:.2f}',
             'new_balance': round(updated_balance, 2),
         })
-    except Exception as error:
+    except Exception:
         conn.rollback()
-        return jsonify({'success': False, 'message': f'Failed to execute sale: {error}'}), 500
+        return jsonify({'success': False, 'message': 'Failed to execute sale.'}), 500
     finally:
         cursor.close()
         conn.close()
@@ -577,7 +581,9 @@ def dashboard_summary():
         'live': True,
     })
 
+# Ensure tables/migrations are applied in both local run and WSGI deployments.
+init_db()
+
 if __name__ == '__main__':
-    init_db()  # Initialize database on startup
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)

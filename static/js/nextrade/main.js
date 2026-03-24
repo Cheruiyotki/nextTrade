@@ -18,6 +18,7 @@ function App() {
     },
     api: {
       buyAsset: "/api/buy-asset",
+      sellAsset: "/api/sell-asset",
       userAssets: "/api/user-assets",
       dashboardSummary: "/api/dashboard-summary",
       marketAssets: "/api/market-assets",

@@ -113,7 +113,11 @@ export function AuthenticatedDashboardView({ config }) {
       ]);
 
       if (!holdingsResponse.ok || !summaryResponse.ok || !marketResponse.ok) {
-        throw new Error("Failed to load dashboard data.");
+        throw new Error(
+          holdingsResponse.status === 401 || summaryResponse.status === 401 || marketResponse.status === 401
+            ? "Session expired. Please log in again."
+            : "Failed to load dashboard data."
+        );
       }
 
       const holdingsData = await holdingsResponse.json();
@@ -154,8 +158,11 @@ export function AuthenticatedDashboardView({ config }) {
         }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) {
+        if (response.status === 401) {
+          throw new Error("Session expired. Please log in again.");
+        }
         throw new Error(data.message || "Trade failed.");
       }
 

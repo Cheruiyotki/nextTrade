@@ -16,6 +16,7 @@ const currency = new Intl.NumberFormat("en-US", {
 
 export default function DashboardHeader({ stats = mockDashboardStats }) {
   const isPositive = Number(stats.change24h || 0) >= 0;
+  const changeIcon = isPositive ? "\u25B2" : "\u25BC";
 
   return (
     <section className="bg-slate-900/50 backdrop-blur-md border-b border-white/10 rounded-2xl p-4 md:p-5">
@@ -50,7 +51,7 @@ export default function DashboardHeader({ stats = mockDashboardStats }) {
         <article className="rounded-xl border border-white/10 bg-slate-900/45 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">24h Change</p>
           <p className={`mt-1 text-xl font-semibold ${isPositive ? "text-emerald-400" : "text-red-400"}`}>
-            {isPositive ? "?" : "?"} {Math.abs(Number(stats.change24h || 0)).toFixed(2)}%
+            {changeIcon} {Math.abs(Number(stats.change24h || 0)).toFixed(2)}%
           </p>
         </article>
       </div>
