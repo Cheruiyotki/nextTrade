@@ -3,10 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>NexTrade Home</title>
+    <link href="/static/css/style.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Welcome to NexTrade</h1>
-    <p>This is the index page. Add your production UI here.</p>
-    <p><a href="/login">Login</a> | <a href="/register">Register</a> | <a href="/explore">Explore</a></p>
+    <div class="container">
+      <header>
+        <div class="brand">Nextrade <span>↗</span></div>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/explore">Explore</a>
+          <a href="/how-it-works">How it Works</a>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+        </nav>
+      </header>
+
+      <section class="hero card">
+        <h1>Trade everything: crypto, points, NFTs</h1>
+        <p>Secure your portfolio with instant trades and market insights. This UI style is aligned with your dark dashboard image.</p>
+        <a class="btn btn-primary" href="/explore">Start Trading</a>
+      </section>
+
+      <section class="cards" style="margin-top: 16px;">
+        <article class="asset-card">
+          <h3>BTC</h3>
+          <small>Bitcoin</small>
+          <p>Live price trend and swap options</p>
+        </article>
+        <article class="asset-card">
+          <h3>ETH</h3>
+          <small>Ethereum</small>
+          <p>Decentralized finance tokens</p>
+        </article>
+        <article class="asset-card">
+          <h3>BONGA</h3>
+          <small>Points</small>
+          <p>Reward credits and airtime balance</p>
+        </article>
+      </section>
+
+      <footer class="footer">Style applied from <strong>/static/css/style.css</strong> — screenshot layout analyzed and implemented.</footer>
+    </div>
   </body>
 </html>
