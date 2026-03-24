@@ -1,9 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><title>How It Works</title></head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nextrade | How It Works</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
+  </head>
   <body>
-    <h1>How It Works</h1>
-    <p>This is a placeholder page for your app explanation text.</p>
-    <p><a href="/">Home</a></p>
+    <div class="nx-shell">
+      <header class="nx-nav">
+        <a class="nx-brand" href="{{ url_for('index') }}">
+          <span class="nx-brand-mark">N</span>
+          Nextrade
+        </a>
+        <nav class="nx-nav-links">
+          <a href="{{ url_for('explore') }}">Explore</a>
+          <a href="{{ url_for('how_it_works') }}">How It Works</a>
+          <a href="{{ url_for('portfolio') }}">Portfolio</a>
+        </nav>
+        <div class="nx-actions">
+          {% if session.get('user_id') %}
+            <a class="nx-btn-outline" href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a class="nx-btn-outline" href="{{ url_for('login') }}">Login</a>
+            <a class="nx-btn" href="{{ url_for('register') }}">Get Started Free</a>
+          {% endif %}
+        </div>
+      </header>
+
+      <main class="nx-main">
+        <h1>How It Works</h1>
+        <p class="nx-muted">Onboard, connect wallets, trade across classes, and manage your portfolio from one place.</p>
+
+        <div class="nx-grid cols-3">
+          <article class="nx-card">
+            <h3>Create Account</h3>
+            <p class="nx-muted">Register in minutes and secure your access credentials.</p>
+          </article>
+          <article class="nx-card">
+            <h3>Link Assets</h3>
+            <p class="nx-muted">Connect wallets, point systems, and digital collectible inventory.</p>
+          </article>
+          <article class="nx-card">
+            <h3>Trade & Manage</h3>
+            <p class="nx-muted">Execute swaps and track holdings from a single dashboard.</p>
+          </article>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

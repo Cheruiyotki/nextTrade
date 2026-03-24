@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nextrade | NFT Marketplace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
+  </head>
+  <body>
+    <div class="nx-shell">
+      <header class="nx-nav">
+        <a class="nx-brand" href="{{ url_for('index') }}">
+          <span class="nx-brand-mark">N</span>
+          Nextrade
+        </a>
+        <nav class="nx-nav-links">
+          <a href="{{ url_for('explore') }}">Explore</a>
+          <a href="{{ url_for('nft_marketplace') }}">NFT Marketplace</a>
+          <a href="{{ url_for('portfolio') }}">Portfolio</a>
+        </nav>
+        <div class="nx-actions">
+          <a class="nx-btn-outline" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+      </header>
+
+      <main class="nx-main">
+        <h1>NFT Marketplace</h1>
+        <p class="nx-muted">Discover, value, and manage premium NFT inventory.</p>
+
+        <h3 style="margin-top: 18px;">Marketplace Listings</h3>
+        <ul class="nx-list">
+          {% for asset in assets %}
+            <li>
+              <strong>{{ asset[1] }} ({{ asset[2] }})</strong>
+              <div class="nx-muted">Price: ${{ asset[3] }} | 24h: {{ asset[4] }}%</div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h3 style="margin-top: 18px;">Your NFT Holdings</h3>
+        <ul class="nx-list">
+          {% for item in user_nfts %}
+            <li>
+              <strong>{{ item[0] }} ({{ item[1] }})</strong>
+              <div class="nx-muted">Quantity: {{ item[2] }}</div>
+            </li>
+          {% else %}
+            <li><span class="nx-muted">No NFT holdings yet.</span></li>
+          {% endfor %}
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>

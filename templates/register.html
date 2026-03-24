@@ -1,15 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><title>Register</title></head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nextrade | Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
+  </head>
   <body>
-    <h1>Register</h1>
-    <form method="post">
-      <input name="username" placeholder="Username" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <input name="password" type="password" placeholder="Password" required>
-      <input name="confirm_password" type="password" placeholder="Confirm Password" required>
-      <button type="submit">Register</button>
-    </form>
-    <p><a href="/login">Login</a></p>
+    <div class="nx-shell">
+      <header class="nx-nav">
+        <a class="nx-brand" href="{{ url_for('index') }}">
+          <span class="nx-brand-mark">N</span>
+          Nextrade
+        </a>
+        <nav class="nx-nav-links">
+          <a href="{{ url_for('explore') }}">Explore</a>
+          <a href="{{ url_for('how_it_works') }}">How It Works</a>
+          <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+        <div class="nx-actions">
+          <a class="nx-btn-outline" href="{{ url_for('login') }}">Login</a>
+        </div>
+      </header>
+
+      <main class="nx-main">
+        <h1>Create Account</h1>
+        <p class="nx-muted">Start trading crypto, points, and NFTs in one secure workflow.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="nx-flash">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form class="nx-form" method="post">
+          <input name="username" placeholder="Username" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="password" type="password" placeholder="Password" required>
+          <input name="confirm_password" type="password" placeholder="Confirm Password" required>
+          <button class="nx-btn" type="submit">Register</button>
+        </form>
+
+        <div class="nx-inline-links">
+          <a href="{{ url_for('login') }}">Already have an account? Login</a>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

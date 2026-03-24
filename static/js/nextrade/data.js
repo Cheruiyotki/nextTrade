@@ -1,9 +1,9 @@
 export const navLinks = [
   { label: "Explore", key: "explore" },
   { label: "How It Works", key: "howItWorks" },
-  { label: "Buy Crypto", key: "explore" },
-  { label: "Sell Points", key: "explore" },
-  { label: "NFT Marketplace", key: "explore" },
+  { label: "Buy Crypto", key: "buyCrypto" },
+  { label: "Sell Points", key: "sellPoints" },
+  { label: "NFT Marketplace", key: "nftMarketplace" },
   { label: "Portfolio", key: "portfolio" }
 ];
 

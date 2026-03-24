@@ -308,7 +308,7 @@ export function FooterBlock({ columns }) {
   `;
 }
 
-export function HeroContent({ headline, onAction, actionLabel, ctaFeedback }) {
+export function HeroContent({ headline, onAction, actionLabel, actionHref, ctaFeedback }) {
   return html`
     <section className="relative overflow-hidden px-6 pb-7 pt-10 text-center md:px-10">
       <div className="nx-hero-network">
@@ -352,13 +352,13 @@ export function HeroContent({ headline, onAction, actionLabel, ctaFeedback }) {
       <p className="relative z-10 mx-auto mt-4 max-w-2xl text-sm nx-subtle-text md:text-base">
         Nextrade is your all-in-one platform to buy, sell, and manage diverse digital assets. Effortless. Secure. Connected.
       </p>
-      <button
-        type="button"
+      <a
+        href=${actionHref}
         className="nx-cta relative z-10 mt-6 rounded-full bg-electric px-6 py-2 text-sm font-semibold text-white shadow-glowBlue"
         onClick=${onAction}
       >
         ${actionLabel}
-      </button>
+      </a>
       ${
         ctaFeedback
           ? html`<p className="relative z-10 mt-3 text-xs text-sky-200/90">${ctaFeedback}</p>`
@@ -368,7 +368,7 @@ export function HeroContent({ headline, onAction, actionLabel, ctaFeedback }) {
   `;
 }
 
-export function LeftHeroHighlight({ title, description, buttonLabel, onClick }) {
+export function LeftHeroHighlight({ title, description, buttonLabel, buttonHref, onClick }) {
   return html`
     <article className="nx-glass rounded-2xl p-5">
       <div className="flex items-center gap-2 text-slate-100">
@@ -376,14 +376,14 @@ export function LeftHeroHighlight({ title, description, buttonLabel, onClick }) 
       </div>
       <h3 className="mt-5 max-w-xs text-3xl font-semibold leading-tight">${title}</h3>
       <p className="mt-3 max-w-sm text-sm leading-relaxed nx-subtle-text">${description}</p>
-      <button
-        type="button"
+      <a
+        href=${buttonHref}
         className="nx-cta mt-4 inline-flex items-center gap-2 rounded-full bg-electric px-4 py-2 text-xs font-semibold"
         onClick=${onClick}
       >
         ${buttonLabel}
         <${FiArrowRight} className="h-3.5 w-3.5" />
-      </button>
+      </a>
     </article>
   `;
 }

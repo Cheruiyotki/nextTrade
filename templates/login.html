@@ -1,13 +1,50 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><title>Login</title></head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nextrade | Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
+  </head>
   <body>
-    <h1>Login</h1>
-    <form method="post">
-      <input name="username" placeholder="Username" required>
-      <input name="password" type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p><a href="/register">Register</a></p>
+    <div class="nx-shell">
+      <header class="nx-nav">
+        <a class="nx-brand" href="{{ url_for('index') }}">
+          <span class="nx-brand-mark">N</span>
+          Nextrade
+        </a>
+        <nav class="nx-nav-links">
+          <a href="{{ url_for('explore') }}">Explore</a>
+          <a href="{{ url_for('how_it_works') }}">How It Works</a>
+          <a href="{{ url_for('register') }}">Register</a>
+        </nav>
+        <div class="nx-actions">
+          <a class="nx-btn" href="{{ url_for('register') }}">Get Started Free</a>
+        </div>
+      </header>
+
+      <main class="nx-main">
+        <h1>Login</h1>
+        <p class="nx-muted">Access your Nextrade dashboard, portfolio, and market actions.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="nx-flash">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form class="nx-form" method="post">
+          <input name="username" placeholder="Username" required>
+          <input name="password" type="password" placeholder="Password" required>
+          <button class="nx-btn" type="submit">Login</button>
+        </form>
+
+        <div class="nx-inline-links">
+          <a href="{{ url_for('register') }}">Need an account? Register</a>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

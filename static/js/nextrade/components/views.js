@@ -49,7 +49,7 @@ function LiveMarketBrief({ assets }) {
   `;
 }
 
-function SidebarGrowthWidget({ asset, onAction }) {
+function SidebarGrowthWidget({ asset, actionHref, onAction }) {
   return html`
     <article className="nx-glass mt-4 grid gap-3 rounded-2xl p-4 md:grid-cols-[1.1fr_1.2fr] md:items-center">
       <div>
@@ -59,13 +59,13 @@ function SidebarGrowthWidget({ asset, onAction }) {
         <p className="mt-2 text-xs leading-relaxed nx-subtle-text">
           Nurture a portfolio in one platform to buy, sell, and manage diverse digital assets.
         </p>
-        <button
-          type="button"
+        <a
+          href=${actionHref}
           className="nx-cta mt-4 rounded-full bg-electric px-4 py-2 text-xs font-semibold text-white"
           onClick=${onAction}
         >
           Get Started Now
-        </button>
+        </a>
       </div>
       <div className="rounded-xl border border-blue-300/25 bg-slate-900/40 p-2">
         <${MiniMarketChart}
@@ -93,10 +93,7 @@ export function LeftSidebarView({ config }) {
         primaryLabel="Get Started Free"
         primaryHref=${config.urls.register}
         hideLinks=${true}
-        onPrimaryClick=${(event) => {
-          event.preventDefault();
-          setRegisterCount((current) => current + 1);
-        }}
+        onPrimaryClick=${() => setRegisterCount((current) => current + 1)}
       />
 
       <div className="p-4 md:p-5">
@@ -104,6 +101,7 @@ export function LeftSidebarView({ config }) {
           title=${leftPanelHighlights[0].title}
           description=${leftPanelHighlights[0].description}
           buttonLabel=${leftPanelHighlights[0].button}
+          buttonHref=${config.urls.register}
           onClick=${() => setRegisterCount((current) => current + 1)}
         />
 
@@ -117,18 +115,19 @@ export function LeftSidebarView({ config }) {
           <p className="mt-2 text-xs nx-subtle-text">
             ${leftPanelHighlights[1].description}
           </p>
-          <button
-            type="button"
+          <a
+            href=${config.urls.register}
             className="nx-cta mt-4 rounded-full bg-electric px-4 py-2 text-xs font-semibold text-white"
             onClick=${() => setWidgetClicks((current) => current + 1)}
           >
             ${leftPanelHighlights[1].button}
-          </button>
+          </a>
         </article>
 
         <${LiveMarketBrief} assets=${marketAssets} />
         <${SidebarGrowthWidget}
           asset=${marketAssets[1]}
+          actionHref=${config.urls.register}
           onAction=${() => setWidgetClicks((current) => current + 1)}
         />
 
@@ -158,15 +157,13 @@ export function CenterHeroView({ config }) {
         user=${config.user}
         primaryLabel="Get Started Free"
         primaryHref=${config.urls.register}
-        onPrimaryClick=${(event) => {
-          event.preventDefault();
-          setCtaClicks((current) => current + 1);
-        }}
+        onPrimaryClick=${() => setCtaClicks((current) => current + 1)}
       />
 
       <${HeroContent}
         headline="TRADE EVERYTHING. CRYPTO, POINTS, NFTS."
         actionLabel="Get Started Now"
+        actionHref=${config.urls.register}
         ctaFeedback=${ctaMessage}
         onAction=${() => setCtaClicks((current) => current + 1)}
       />
@@ -194,21 +191,18 @@ export function RightWorkflowView({ config }) {
         user=${config.user}
         primaryLabel=${ctaLabel}
         primaryHref=${config.urls.register}
-        onPrimaryClick=${(event) => {
-          event.preventDefault();
-          setFreeTrials((current) => current + 1);
-        }}
+        onPrimaryClick=${() => setFreeTrials((current) => current + 1)}
       />
 
       <div className="px-4 pb-6 pt-5 md:px-6 md:pb-8">
         <div className="mb-4 flex justify-center">
-          <button
-            type="button"
+          <a
+            href=${config.urls.register}
             className="nx-cta rounded-full bg-electric px-5 py-2 text-xs font-semibold text-white"
             onClick=${() => setFreeTrials((current) => current + 1)}
           >
             Get Started Free
-          </button>
+          </a>
         </div>
 
         <${LiveMarket} assets=${marketAssets} compact=${false} title="Live Market Data" />

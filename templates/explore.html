@@ -1,13 +1,46 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><title>Explore</title></head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nextrade | Explore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
+  </head>
   <body>
-    <h1>Explore Assets</h1>
-    <ul>
-    {% for asset in assets %}
-      <li>{{ asset[1] }} ({{ asset[2] }}) - ${{ asset[3] }}</li>
-    {% endfor %}
-    </ul>
-    <p><a href="/">Home</a></p>
+    <div class="nx-shell">
+      <header class="nx-nav">
+        <a class="nx-brand" href="{{ url_for('index') }}">
+          <span class="nx-brand-mark">N</span>
+          Nextrade
+        </a>
+        <nav class="nx-nav-links">
+          <a href="{{ url_for('explore') }}">Explore</a>
+          <a href="{{ url_for('how_it_works') }}">How It Works</a>
+          <a href="{{ url_for('portfolio') }}">Portfolio</a>
+        </nav>
+        <div class="nx-actions">
+          {% if session.get('user_id') %}
+            <a class="nx-btn-outline" href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a class="nx-btn-outline" href="{{ url_for('login') }}">Login</a>
+            <a class="nx-btn" href="{{ url_for('register') }}">Get Started Free</a>
+          {% endif %}
+        </div>
+      </header>
+
+      <main class="nx-main">
+        <h1>Explore Assets</h1>
+        <p class="nx-muted">Live listings for crypto, points, and NFT assets available on Nextrade.</p>
+
+        <ul class="nx-list">
+          {% for asset in assets %}
+            <li>
+              <strong>{{ asset[1] }}</strong> ({{ asset[2] }})
+              <div class="nx-muted">Current Price: ${{ asset[3] }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+      </main>
+    </div>
   </body>
 </html>
