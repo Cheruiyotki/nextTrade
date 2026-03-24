@@ -1,5 +1,6 @@
 import { createRoot, html } from "./lib.js";
 import { CenterHeroView, LeftSidebarView, RightWorkflowView } from "./components/views.js";
+import { AuthenticatedDashboardView } from "./components/dashboardView.js";
 
 function App() {
   const config = window.NEXTRADE_CONFIG || {
@@ -8,15 +9,28 @@ function App() {
       explore: "/explore",
       howItWorks: "/how-it-works",
       portfolio: "/portfolio",
+      buyCrypto: "/buy-crypto",
+      sellPoints: "/sell-points",
+      nftMarketplace: "/nft-marketplace",
       login: "/login",
       register: "/register",
       logout: "/logout"
+    },
+    api: {
+      buyAsset: "/api/buy-asset",
+      userAssets: "/api/user-assets",
+      dashboardSummary: "/api/dashboard-summary",
+      marketAssets: "/api/market-assets",
     },
     user: {
       isAuthenticated: false,
       username: null
     }
   };
+
+  if (config.user?.isAuthenticated) {
+    return html`<${AuthenticatedDashboardView} config=${config} />`;
+  }
 
   return html`
     <main className="relative min-h-screen overflow-hidden px-3 py-5 sm:px-5 lg:px-8 lg:py-7">

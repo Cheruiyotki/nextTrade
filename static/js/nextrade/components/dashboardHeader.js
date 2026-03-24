@@ -1,0 +1,57 @@
+import { html } from "../lib.js";
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value || 0);
+}
+
+export function DashboardHeader({ stats }) {
+  const safeStats = stats || {
+    netWorth: 10000,
+    availableCash: 10000,
+    change24h: 0,
+    live: true,
+  };
+
+  const isPositive = Number(safeStats.change24h || 0) >= 0;
+  const changeClass = isPositive ? "text-emerald-400" : "text-red-400";
+  const changeIcon = isPositive ? "?" : "?";
+
+  return html`
+    <section className="bg-slate-900/50 backdrop-blur-md border-b border-white/10 rounded-2xl p-4 md:p-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-xs text-slate-300">
+          <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>${safeStats.live ? "Live market connected" : "Feed paused"}</span>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <article className="rounded-xl border border-white/10 bg-slate-900/45 p-3">
+          <p className="text-xs uppercase tracking-wide text-slate-400">Total Net Worth</p>
+          <p className="mt-1 text-3xl font-semibold text-white font-mono" style=${{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+            ${formatCurrency(safeStats.netWorth)}
+          </p>
+        </article>
+
+        <article className="rounded-xl border border-white/10 bg-slate-900/45 p-3">
+          <p className="text-xs uppercase tracking-wide text-slate-400">Available Cash</p>
+          <p className="mt-1 text-xl font-semibold text-sky-200 font-mono" style=${{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+            ${formatCurrency(safeStats.availableCash)}
+          </p>
+        </article>
+
+        <article className="rounded-xl border border-white/10 bg-slate-900/45 p-3">
+          <p className="text-xs uppercase tracking-wide text-slate-400">24h Change</p>
+          <p className=${`mt-1 text-xl font-semibold ${changeClass}`}>
+            ${changeIcon} ${Math.abs(Number(safeStats.change24h || 0)).toFixed(2)}%
+          </p>
+        </article>
+      </div>
+    </section>
+  `;
+}

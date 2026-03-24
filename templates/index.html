@@ -8,6 +8,9 @@
       name="description"
       content="NexTrade dark-mode digital asset exchange with crypto, points, and NFT trading workflows."
     >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
     <script>
       tailwind.config = {
@@ -47,6 +50,13 @@
           "login": url_for('login'),
           "register": url_for('register'),
           "logout": url_for('logout')
+        },
+        "api": {
+          "buyAsset": url_for('buy_asset'),
+          "sellAsset": url_for('sell_asset'),
+          "userAssets": url_for('get_user_assets'),
+          "dashboardSummary": url_for('dashboard_summary'),
+          "marketAssets": url_for('market_assets')
         },
         "user": {
           "isAuthenticated": session.get('user_id') is not none,

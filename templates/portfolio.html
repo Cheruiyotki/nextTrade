@@ -1,47 +1,23 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nextrade | Portfolio</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-theme.css') }}">
-  </head>
-  <body>
-    <div class="nx-shell">
-      <header class="nx-nav">
-        <a class="nx-brand" href="{{ url_for('index') }}">
-          <span class="nx-brand-mark">N</span>
-          Nextrade
-        </a>
-        <nav class="nx-nav-links">
-          <a href="{{ url_for('explore') }}">Explore</a>
-          <a href="{{ url_for('how_it_works') }}">How It Works</a>
-          <a href="{{ url_for('portfolio') }}">Portfolio</a>
-        </nav>
-        <div class="nx-actions">
-          <a class="nx-btn-outline" href="{{ url_for('logout') }}">Logout</a>
-        </div>
-      </header>
+{% extends "layout.html" %}
 
-      <main class="nx-main">
-        <h1>Portfolio</h1>
-        <p class="nx-muted">Your portfolio is private and available only while logged in.</p>
+{% block title %}Nextrade | Portfolio{% endblock %}
 
-        <div class="nx-grid cols-3">
-          <article class="nx-card">
-            <h3>Crypto Holdings</h3>
-            <p class="nx-muted">Track BTC, ETH, and other tokens with real-time value visibility.</p>
-          </article>
-          <article class="nx-card">
-            <h3>Points Balance</h3>
-            <p class="nx-muted">Manage loyalty value across exchange-enabled reward systems.</p>
-          </article>
-          <article class="nx-card">
-            <h3>NFT Positions</h3>
-            <p class="nx-muted">Review collectible inventory and marketplace exposure.</p>
-          </article>
-        </div>
-      </main>
-    </div>
-  </body>
-</html>
+{% block content %}
+  <h1>Portfolio</h1>
+  <p class="nx-muted">Your portfolio is private and available only while logged in.</p>
+
+  <div class="nx-grid cols-3">
+    <article class="nx-card">
+      <h3>Crypto Holdings</h3>
+      <p class="nx-muted">Track BTC, ETH, and other tokens with real-time value visibility.</p>
+    </article>
+    <article class="nx-card">
+      <h3>Points Balance</h3>
+      <p class="nx-muted">Manage loyalty value across exchange-enabled reward systems.</p>
+    </article>
+    <article class="nx-card">
+      <h3>NFT Positions</h3>
+      <p class="nx-muted">Review collectible inventory and marketplace exposure.</p>
+    </article>
+  </div>
+{% endblock %}
