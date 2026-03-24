@@ -2,47 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NexTrade Home</title>
-    <link href="/static/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NexTrade | Trade Everything</title>
+    <meta
+      name="description"
+      content="NexTrade dark-mode digital asset exchange with crypto, points, and NFT trading workflows."
+    >
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              canvas: "#0D1117",
+              panel: "#101926",
+              electric: "#007BFF",
+              growth: "#00C853",
+              nft: "#9C27B0"
+            },
+            boxShadow: {
+              glowBlue: "0 0 0 1px rgba(0,123,255,0.28), 0 0 42px rgba(0,123,255,0.22)",
+              glowGreen: "0 0 28px rgba(0,200,83,0.35)",
+              glowPurple: "0 0 28px rgba(156,39,176,0.35)"
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nextrade-react.css') }}">
   </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="brand">Nextrade <span>↗</span></div>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/explore">Explore</a>
-          <a href="/how-it-works">How it Works</a>
-          <a href="/login">Login</a>
-          <a href="/register">Register</a>
-        </nav>
-      </header>
+  <body class="bg-canvas text-white antialiased">
+    <div id="root"></div>
 
-      <section class="hero card">
-        <h1>Trade everything: crypto, points, NFTs</h1>
-        <p>Secure your portfolio with instant trades and market insights. This UI style is aligned with your dark dashboard image.</p>
-        <a class="btn btn-primary" href="/explore">Start Trading</a>
-      </section>
-
-      <section class="cards" style="margin-top: 16px;">
-        <article class="asset-card">
-          <h3>BTC</h3>
-          <small>Bitcoin</small>
-          <p>Live price trend and swap options</p>
-        </article>
-        <article class="asset-card">
-          <h3>ETH</h3>
-          <small>Ethereum</small>
-          <p>Decentralized finance tokens</p>
-        </article>
-        <article class="asset-card">
-          <h3>BONGA</h3>
-          <small>Points</small>
-          <p>Reward credits and airtime balance</p>
-        </article>
-      </section>
-
-      <footer class="footer">Style applied from <strong>/static/css/style.css</strong> — screenshot layout analyzed and implemented.</footer>
-    </div>
+    <script>
+      window.NEXTRADE_CONFIG = {{ {
+        "urls": {
+          "home": url_for('index'),
+          "explore": url_for('explore'),
+          "howItWorks": url_for('how_it_works'),
+          "portfolio": url_for('portfolio'),
+          "login": url_for('login'),
+          "register": url_for('register'),
+          "logout": url_for('logout')
+        },
+        "user": {
+          "isAuthenticated": session.get('user_id') is not none,
+          "username": session.get('username')
+        }
+      } | tojson }};
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/nextrade/main.js') }}"></script>
   </body>
 </html>
